@@ -30,8 +30,8 @@ def send_telegram(message):
     """
     发送消息到 Telegram
     """
-    bot_token = get_env("TELEGRAM_BOT_TOKEN")
-    chat_id = get_env("TELEGRAM_CHAT_ID")
+    bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
 
     if not bot_token or not chat_id:
         print("❌ Telegram token 或 chat_id 未设置")

@@ -207,6 +207,8 @@ def main():
     except Exception as err:
         print('%s\n❌ 错误，请查看运行日志！' % err)
 
+  # 发送到 Telegram
+    send_telegram(msg)
     return msg[:-1]
 
 
@@ -215,5 +217,3 @@ if __name__ == "__main__":
     main()
     print("----------夸克网盘签到完毕----------")
 
-  # 发送到 Telegram
-    send_telegram(result)

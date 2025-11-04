@@ -26,6 +26,33 @@ def get_env():
 
 # 其他代码...
 
+def send_telegram(message):
+    """
+    发送消息到 Telegram
+    """
+    bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    chat_id = os.getenv("TELEGRAM_CHAT_ID")
+
+    if not bot_token or not chat_id:
+        print("❌ Telegram token 或 chat_id 未设置")
+        return
+
+    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+    payload = {
+        "chat_id": chat_id,
+        "text": message,
+        "parse_mode": "Markdown"  # 支持 Markdown 格式
+    }
+
+    try:
+        response = requests.post(url, data=payload)
+        if response.status_code == 200:
+            print("✅ Telegram 消息发送成功")
+        else:
+            print(f"❌ Telegram 消息发送失败: {response.text}")
+    except Exception as e:
+        print(f"❌ Telegram 发送异常: {e}")
+
 class Quark:
     '''
     Quark类封装了签到、领取签到奖励的方法
@@ -187,3 +214,6 @@ if __name__ == "__main__":
     print("----------夸克网盘开始签到----------")
     main()
     print("----------夸克网盘签到完毕----------")
+
+  # 发送到 Telegram
+    send_telegram(result)
